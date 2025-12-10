@@ -443,7 +443,7 @@
     <database>northwind_dwh</database>
     <port>3306</port>
     <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce10cc9da0ce</password>
+    <password>Encrypted </password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -722,150 +722,6 @@
     </GUI>
   </step>
   <step>
-    <name>Select values</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>DateKey</name>
-        <rename/>
-      </field>
-      <field>
-        <name>date_actual</name>
-        <rename>Date</rename>
-      </field>
-      <field>
-        <name>bln</name>
-        <rename>Month</rename>
-      </field>
-      <field>
-        <name>kuartal</name>
-        <rename>Quarter</rename>
-      </field>
-      <field>
-        <name>thn</name>
-        <rename>Year</rename>
-      </field>
-      <field>
-        <name>hari_dlm_minggu</name>
-        <rename>DayOfWeek</rename>
-      </field>
-      <field>
-        <name>MonthName</name>
-        <rename/>
-      </field>
-      <field>
-        <name>QuarterName</name>
-        <rename/>
-      </field>
-      <field>
-        <name>DayName</name>
-        <rename>Dayname</rename>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>352</xloc>
-      <yloc>352</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Table output</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <connection>northwind_dwh-target</connection>
-    <schema/>
-    <table>dim_time</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-      <field>
-        <column_name>DateKey</column_name>
-        <stream_name>DateKey</stream_name>
-      </field>
-      <field>
-        <column_name>Date</column_name>
-        <stream_name>Date</stream_name>
-      </field>
-      <field>
-        <column_name>Month</column_name>
-        <stream_name>Month</stream_name>
-      </field>
-      <field>
-        <column_name>Quarter</column_name>
-        <stream_name>Quarter</stream_name>
-      </field>
-      <field>
-        <column_name>Year</column_name>
-        <stream_name>Year</stream_name>
-      </field>
-      <field>
-        <column_name>DayOfWeek</column_name>
-        <stream_name>DayOfWeek</stream_name>
-      </field>
-      <field>
-        <column_name>MonthName</column_name>
-        <stream_name>MonthName</stream_name>
-      </field>
-      <field>
-        <column_name>QuarterName</column_name>
-        <stream_name>QuarterName</stream_name>
-      </field>
-      <field>
-        <column_name>Dayname</column_name>
-        <stream_name>Dayname</stream_name>
-      </field>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>240</xloc>
-      <yloc>352</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
     <name>Generate</name>
     <type>RowGenerator</type>
     <description/>
@@ -890,7 +746,7 @@
         <set_empty_string>N</set_empty_string>
       </field>
     </fields>
-    <limit>3650</limit>
+    <limit>1000</limit>
     <never_ending>N</never_ending>
     <interval_in_ms>5000</interval_in_ms>
     <row_time_field>now</row_time_field>
@@ -991,6 +847,147 @@ var QuarterName = "Q" + kuartal;</jsScript_script>
     </remotesteps>
     <GUI>
       <xloc>496</xloc>
+      <yloc>352</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>DateKey</name>
+      </field>
+      <field>
+        <name>date_actual</name>
+        <rename>Date</rename>
+      </field>
+      <field>
+        <name>bln</name>
+        <rename>Month</rename>
+      </field>
+      <field>
+        <name>kuartal</name>
+        <rename>Quarter</rename>
+      </field>
+      <field>
+        <name>thn</name>
+        <rename>Year</rename>
+      </field>
+      <field>
+        <name>hari_dlm_minggu</name>
+        <rename>DayOfWeek</rename>
+      </field>
+      <field>
+        <name>MonthName</name>
+      </field>
+      <field>
+        <name>QuarterName</name>
+      </field>
+      <field>
+        <name>DayName</name>
+        <rename>Dayname</rename>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>352</xloc>
+      <yloc>352</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Table output</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>northwind_dwh-target</connection>
+    <schema/>
+    <table>dim_time</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+      <field>
+        <column_name>DateKey</column_name>
+        <stream_name>DateKey</stream_name>
+      </field>
+      <field>
+        <column_name>Date</column_name>
+        <stream_name>Date</stream_name>
+      </field>
+      <field>
+        <column_name>Month</column_name>
+        <stream_name>Month</stream_name>
+      </field>
+      <field>
+        <column_name>Quarter</column_name>
+        <stream_name>Quarter</stream_name>
+      </field>
+      <field>
+        <column_name>Year</column_name>
+        <stream_name>Year</stream_name>
+      </field>
+      <field>
+        <column_name>DayOfWeek</column_name>
+        <stream_name>DayOfWeek</stream_name>
+      </field>
+      <field>
+        <column_name>MonthName</column_name>
+        <stream_name>MonthName</stream_name>
+      </field>
+      <field>
+        <column_name>QuarterName</column_name>
+        <stream_name>QuarterName</stream_name>
+      </field>
+      <field>
+        <column_name>Dayname</column_name>
+        <stream_name>Dayname</stream_name>
+      </field>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>240</xloc>
       <yloc>352</yloc>
       <draw>Y</draw>
     </GUI>

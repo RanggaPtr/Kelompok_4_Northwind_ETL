@@ -443,7 +443,7 @@
     <database>northwind_dwh</database>
     <port>3306</port>
     <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce10cc9da0ce</password>
+    <password>Encrypted </password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -506,7 +506,7 @@
     <database>northwind</database>
     <port>3306</port>
     <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ce10cc9da0ce</password>
+    <password>Encrypted </password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -574,6 +574,50 @@
     </hop>
   </order>
   <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>ProductID_OLTP</name>
+        <rename/>
+      </field>
+      <field>
+        <name>ProductName</name>
+        <rename>ProductName</rename>
+      </field>
+      <field>
+        <name>CategoryName</name>
+        <rename/>
+      </field>
+      <field>
+        <name>SupplierID</name>
+        <rename>SupplierName	</rename>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>632</xloc>
+      <yloc>350</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
     <name>Table input</name>
     <type>TableInput</type>
     <description/>
@@ -603,11 +647,11 @@ LEFT JOIN suppliers s ON p.supplier_ids = s.id</sql>
       <value-meta>
         <type>Integer</type>
         <storagetype>normal</storagetype>
-        <name>id</name>
+        <name>ProductID_OLTP</name>
         <length>9</length>
         <precision>0</precision>
         <origin>Table input</origin>
-        <comments>id</comments>
+        <comments>ProductID_OLTP</comments>
         <conversion_Mask>####0;-####0</conversion_Mask>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -626,11 +670,11 @@ LEFT JOIN suppliers s ON p.supplier_ids = s.id</sql>
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>product_name</name>
+        <name>ProductName</name>
         <length>50</length>
         <precision>-1</precision>
         <origin>Table input</origin>
-        <comments>product_name</comments>
+        <comments>ProductName</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -649,11 +693,11 @@ LEFT JOIN suppliers s ON p.supplier_ids = s.id</sql>
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>category</name>
+        <name>CategoryName</name>
         <length>50</length>
         <precision>-1</precision>
         <origin>Table input</origin>
-        <comments>category</comments>
+        <comments>CategoryName</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -672,11 +716,34 @@ LEFT JOIN suppliers s ON p.supplier_ids = s.id</sql>
       <value-meta>
         <type>String</type>
         <storagetype>normal</storagetype>
-        <name>supplier_ids</name>
+        <name>SupplierID</name>
         <length>715827882</length>
         <precision>-1</precision>
         <origin>Table input</origin>
-        <comments>supplier_ids</comments>
+        <comments>SupplierID</comments>
+        <conversion_Mask/>
+        <decimal_symbol>.</decimal_symbol>
+        <grouping_symbol>,</grouping_symbol>
+        <currency_symbol/>
+        <trim_type>none</trim_type>
+        <case_insensitive>N</case_insensitive>
+        <collator_disabled>Y</collator_disabled>
+        <collator_strength>0</collator_strength>
+        <sort_descending>N</sort_descending>
+        <output_padding>N</output_padding>
+        <date_format_lenient>N</date_format_lenient>
+        <date_format_locale>en_ID</date_format_locale>
+        <date_format_timezone>Asia/Jakarta</date_format_timezone>
+        <lenient_string_to_number>N</lenient_string_to_number>
+      </value-meta>
+      <value-meta>
+        <type>String</type>
+        <storagetype>normal</storagetype>
+        <name>SupplierName</name>
+        <length>50</length>
+        <precision>-1</precision>
+        <origin>Table input</origin>
+        <comments>SupplierName</comments>
         <conversion_Mask/>
         <decimal_symbol>.</decimal_symbol>
         <grouping_symbol>,</grouping_symbol>
@@ -703,50 +770,6 @@ LEFT JOIN suppliers s ON p.supplier_ids = s.id</sql>
     </remotesteps>
     <GUI>
       <xloc>456</xloc>
-      <yloc>350</yloc>
-      <draw>Y</draw>
-    </GUI>
-  </step>
-  <step>
-    <name>Select values</name>
-    <type>SelectValues</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-    <partitioning>
-      <method>none</method>
-      <schema_name/>
-    </partitioning>
-    <fields>
-      <field>
-        <name>id</name>
-        <rename>ProductID_OLTP</rename>
-      </field>
-      <field>
-        <name>product_name</name>
-        <rename>ProductName</rename>
-      </field>
-      <field>
-        <name>category</name>
-        <rename>CategoryName</rename>
-      </field>
-      <field>
-        <name>supplier_ids</name>
-        <rename>SupplierName	</rename>
-      </field>
-      <select_unspecified>N</select_unspecified>
-    </fields>
-    <attributes/>
-    <cluster_schema/>
-    <remotesteps>
-      <input>
-      </input>
-      <output>
-      </output>
-    </remotesteps>
-    <GUI>
-      <xloc>632</xloc>
       <yloc>350</yloc>
       <draw>Y</draw>
     </GUI>
