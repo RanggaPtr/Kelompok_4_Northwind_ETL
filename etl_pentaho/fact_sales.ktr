@@ -584,11 +584,16 @@
     </hop>
     <hop>
       <from>Calculator</from>
-      <to>Modified JavaScript value</to>
+      <to>Select values</to>
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Modified JavaScript value</from>
+      <from>Select values</from>
+      <to>Select values 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values 2</from>
       <to>Table output</to>
       <enabled>Y</enabled>
     </hop>
@@ -819,7 +824,7 @@ JOIN order_details od ON o.id = od.order_id;
       <table>dim_customer</table>
       <orderby/>
       <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
+      <eat_row_on_failure>Y</eat_row_on_failure>
       <key>
         <name>customer_id</name>
         <field>CustomerID_OLTP</field>
@@ -1002,13 +1007,20 @@ JOIN order_details od ON o.id = od.order_id;
         <jsScript_type>0</jsScript_type>
         <jsScript_name>Script 1</jsScript_name>
         <jsScript_script>var d = new Date(order_date);
-var DateKey = d.getFullYear() * 10000 
-            + (d.getMonth() + 1) * 100 
-            + d.getDate();
+var DateKey = d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
 </jsScript_script>
       </jsScript>
     </jsScripts>
-    <fields>    </fields>
+    <fields>
+      <field>
+        <name>DateKey</name>
+        <rename>DateKey</rename>
+        <type>Integer</type>
+        <length>8</length>
+        <precision>0</precision>
+        <replace>N</replace>
+      </field>
+    </fields>
     <attributes/>
     <cluster_schema/>
     <remotesteps>
@@ -1018,8 +1030,8 @@ var DateKey = d.getFullYear() * 10000
       </output>
     </remotesteps>
     <GUI>
-      <xloc>736</xloc>
-      <yloc>160</yloc>
+      <xloc>160</xloc>
+      <yloc>320</yloc>
       <draw>Y</draw>
     </GUI>
   </step>
@@ -1058,19 +1070,19 @@ var DateKey = d.getFullYear() * 10000
       </field>
       <field>
         <column_name>CustomerKey</column_name>
-        <stream_name>customer_id</stream_name>
+        <stream_name>CustomerKey</stream_name>
       </field>
       <field>
         <column_name>EmployeeKey</column_name>
-        <stream_name>employee_id</stream_name>
+        <stream_name>EmployeeKey</stream_name>
       </field>
       <field>
         <column_name>ProductKey</column_name>
-        <stream_name>product_id</stream_name>
+        <stream_name>ProductKey</stream_name>
       </field>
       <field>
         <column_name>DateKey</column_name>
-        <stream_name>order_date</stream_name>
+        <stream_name>DateKey</stream_name>
       </field>
       <field>
         <column_name>Quantity</column_name>
@@ -1094,7 +1106,97 @@ var DateKey = d.getFullYear() * 10000
       </output>
     </remotesteps>
     <GUI>
-      <xloc>896</xloc>
+      <xloc>944</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>order_date</name>
+        <rename>DateKey_Temp</rename>
+        <type>String</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyyMMdd</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>720</xloc>
+      <yloc>160</yloc>
+      <draw>Y</draw>
+    </GUI>
+  </step>
+  <step>
+    <name>Select values 2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>DateKey_Temp</name>
+        <rename>DateKey</rename>
+        <type>Integer</type>
+        <length>15</length>
+        <precision>0</precision>
+        <conversion_mask>#</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>true</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <cluster_schema/>
+    <remotesteps>
+      <input>
+      </input>
+      <output>
+      </output>
+    </remotesteps>
+    <GUI>
+      <xloc>832</xloc>
       <yloc>160</yloc>
       <draw>Y</draw>
     </GUI>
