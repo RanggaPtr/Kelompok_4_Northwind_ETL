@@ -510,18 +510,18 @@
       <enabled>Y</enabled>
     </hop>
     <hop>
-      <from>Calculator 2</from>
-      <to>Value mapper</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
-      <from>Value mapper</from>
-      <to>Select values</to>
-      <enabled>Y</enabled>
-    </hop>
-    <hop>
       <from>Select values</from>
       <to>Table output</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Calculator 2</from>
+      <to>Modified JavaScript value</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Modified JavaScript value</from>
+      <to>Select values</to>
       <enabled>Y</enabled>
     </hop>
   </order>
@@ -734,68 +734,42 @@
     </partitioning>
     <fields>
       <field>
-        <name>CurrentDate</name>
+        <name>DateKey</name>
         <rename/>
       </field>
       <field>
-        <name>day_increment</name>
+        <name>date_actual</name>
+        <rename>Date</rename>
+      </field>
+      <field>
+        <name>bln</name>
+        <rename>Month</rename>
+      </field>
+      <field>
+        <name>kuartal</name>
+        <rename>Quarter</rename>
+      </field>
+      <field>
+        <name>thn</name>
+        <rename>Year</rename>
+      </field>
+      <field>
+        <name>hari_dlm_minggu</name>
+        <rename>DayOfWeek</rename>
+      </field>
+      <field>
+        <name>MonthName</name>
         <rename/>
       </field>
       <field>
-        <name>tanggal</name>
+        <name>QuarterName</name>
         <rename/>
       </field>
       <field>
-        <name>Date</name>
-        <rename/>
-      </field>
-      <field>
-        <name>Month</name>
-        <rename/>
-      </field>
-      <field>
-        <name>Quarter</name>
-        <rename/>
-      </field>
-      <field>
-        <name>Day</name>
-        <rename/>
-      </field>
-      <field>
-        <name>Year</name>
-        <rename/>
-      </field>
-      <field>
-        <name>calc_bulan</name>
-        <rename/>
-      </field>
-      <field>
-        <name>calc_id_1</name>
-        <rename/>
-      </field>
-      <field>
-        <name>id_waktu</name>
-        <rename/>
+        <name>DayName</name>
+        <rename>Dayname</rename>
       </field>
       <select_unspecified>N</select_unspecified>
-      <remove>
-        <name>CurrenDate</name>
-      </remove>
-      <remove>
-        <name>day_increment</name>
-      </remove>
-      <remove>
-        <name>hari</name>
-      </remove>
-      <remove>
-        <name>calc_tahun</name>
-      </remove>
-      <remove>
-        <name>calc_bulan</name>
-      </remove>
-      <remove>
-        <name>calc_id_1</name>
-      </remove>
     </fields>
     <attributes/>
     <cluster_schema/>
@@ -841,24 +815,40 @@
     <return_field/>
     <fields>
       <field>
-        <column_name>id_waktu</column_name>
-        <stream_name>id_waktu</stream_name>
+        <column_name>DateKey</column_name>
+        <stream_name>DateKey</stream_name>
       </field>
       <field>
-        <column_name>tanggal</column_name>
-        <stream_name>tanggal</stream_name>
+        <column_name>Date</column_name>
+        <stream_name>Date</stream_name>
       </field>
       <field>
-        <column_name>tahun</column_name>
-        <stream_name>tahun</stream_name>
+        <column_name>Month</column_name>
+        <stream_name>Month</stream_name>
       </field>
       <field>
-        <column_name>bulan</column_name>
-        <stream_name>bulan</stream_name>
+        <column_name>Quarter</column_name>
+        <stream_name>Quarter</stream_name>
       </field>
       <field>
-        <column_name>kuartal</column_name>
-        <stream_name>kuartal</stream_name>
+        <column_name>Year</column_name>
+        <stream_name>Year</stream_name>
+      </field>
+      <field>
+        <column_name>DayOfWeek</column_name>
+        <stream_name>DayOfWeek</stream_name>
+      </field>
+      <field>
+        <column_name>MonthName</column_name>
+        <stream_name>MonthName</stream_name>
+      </field>
+      <field>
+        <column_name>QuarterName</column_name>
+        <stream_name>QuarterName</stream_name>
+      </field>
+      <field>
+        <column_name>Dayname</column_name>
+        <stream_name>Dayname</stream_name>
       </field>
     </fields>
     <attributes/>
@@ -890,11 +880,11 @@
       <field>
         <name>start_date</name>
         <type>Date</type>
-        <format>dd-MM-yyyy</format>
+        <format>yyyy-MM-dd</format>
         <currency/>
         <decimal/>
         <group/>
-        <nullif>01-01-2020</nullif>
+        <nullif>2019-01-01</nullif>
         <length>-1</length>
         <precision>-1</precision>
         <set_empty_string>N</set_empty_string>
@@ -920,8 +910,8 @@
     </GUI>
   </step>
   <step>
-    <name>Value mapper</name>
-    <type>ValueMapper</type>
+    <name>Modified JavaScript value</name>
+    <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -930,10 +920,66 @@
       <method>none</method>
       <schema_name/>
     </partitioning>
-    <field_to_use/>
-    <target_field/>
-    <non_match_default/>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>// Membuat DateKey format YYYYMMDD (Integer)
+// Teknik simpel menambah nol di depan bulan/hari digit tunggal
+var s_bln = (bln &lt; 10) ? "0" + bln : bln;
+var s_hari = (hari &lt; 10) ? "0" + hari : hari;
+var DateKey = Number(thn + "" + s_bln + "" + s_hari);
+
+// Mendapatkan Nama Bulan (Bahasa Inggris)
+var monthNames = ["", "January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"
+];
+var MonthName = monthNames[bln];
+
+// Mendapatkan Nama Hari
+var dayNames = ["", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+// Perhatikan: di Pentaho Day of Week 1 = Sunday atau Monday tergantung setting, sesuaikan array ini.
+var DayName = dayNames[hari_dlm_minggu];
+
+// Quarter Name (Q1, Q2...)
+var QuarterName = "Q" + kuartal;</jsScript_script>
+      </jsScript>
+    </jsScripts>
     <fields>
+      <field>
+        <name>DateKey</name>
+        <rename>DateKey</rename>
+        <type>Integer</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>MonthName</name>
+        <rename>MonthName</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>DayName</name>
+        <rename>DayName</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+      <field>
+        <name>QuarterName</name>
+        <rename>QuarterName</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
     </fields>
     <attributes/>
     <cluster_schema/>
