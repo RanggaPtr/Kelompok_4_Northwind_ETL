@@ -7,6 +7,13 @@ Proyek ini merupakan implementasi proses **ETL (Extract–Transform–Load)** da
 
 ## 📁 Struktur Repository
 
+ANGGOTA:
+ACHMAD DIAZ HIKMAL BAIHAQI (2341720228/03/3B)
+AHMAD NAUFAL WASKITO AJI (2341720080/05/3B)
+IRSA CAHAYA WIDODO (2341720193 /13/3B)
+RAMADHANI BI HAYYIN (2341720226/19/3B)
+RANGGA PUTRA SYANANDA BUDHI (2341720079/20/3B)
+
 ```
 │─Kelompok_4_Northwind_ETL/
 │
